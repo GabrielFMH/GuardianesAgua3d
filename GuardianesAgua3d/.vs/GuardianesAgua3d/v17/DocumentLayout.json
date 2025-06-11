@@ -1,0 +1,102 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\gab0ncio\\documents\\github\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\views\\juego\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\views\\juego\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\gab0ncio\\documents\\github\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\controllers\\juegocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\controllers\\juegocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\gab0ncio\\documents\\github\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\models\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\gab0ncio\\documents\\github\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\models\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Models\\Player.cs",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Models\\Player.cs",
+              "ToolTip": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Models\\Player.cs",
+              "RelativeToolTip": "GuardianesAgua3d\\Models\\Player.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T16:41:11.531Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Models\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Models\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Models\\AppDbContext.cs",
+              "RelativeToolTip": "GuardianesAgua3d\\Models\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T16:30:26.967Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "RelativeToolTip": "GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAANUAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-11T16:29:23.586Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "JuegoController.cs",
+              "DocumentMoniker": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "ToolTip": "C:\\Users\\Gab0ncio\\Documents\\GitHub\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "RelativeToolTip": "GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T16:26:11.843Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
