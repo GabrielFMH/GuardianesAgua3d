@@ -1,214 +1,34 @@
 ﻿@model GuardianesAgua3d.Models.Player
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Juego Laberinto 3D: Cuidado del Agua</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Juego 3D con Three.js</title>
+    <link rel="stylesheet" href="@Url.Content("~/Source/css/estilosBase.css")" />
     <style>
         body {
             margin: 0;
+            padding: 0;
             overflow: hidden;
         }
 
-        canvas {
+        #game-container {
+            width: 100vw;
+            height: 100vh;
             display: block;
         }
-
-        #info {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-        }
-
-        #questionModal {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            padding: 20px;
-            border: 2px solid #333;
-            display: none;
-            font-family: Arial;
-        }
-
-            #questionModal button {
-                margin: 5px;
-                padding: 10px;
-                cursor: pointer;
-            }
     </style>
 </head>
 <body>
-    <div id="info">Puntos: <span id="score">0</span> | Nivel: @Model.Level</div>
-    <div id="questionModal">
-        <h3 id="questionText"></h3>
-        <div id="options"></div>
+
+    <div id="game-container">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.177.0/three.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.177.0/controls/OrbitControls.min.js"></script>
+        <script src="@Url.Content("~/Source/js/logicaBase.js")"></script>
     </div>
-    <script>
-        const token = '@ViewBag.Token';
-        let score = @Model.Score;
-        let questions = [];
 
-        // Configuración de Three.js
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-        // Suelo
-        const groundGeometry = new THREE.PlaneGeometry(50, 50);
-        const groundMaterial = new THREE.MeshBasicMaterial({ color: 0x228B22 });
-        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-        ground.rotation.x = -Math.PI / 2;
-        scene.add(ground);
-
-        // Paredes del laberinto
-        const wallMaterial = new THREE.MeshBasicMaterial({ color: 0x808080 });
-        const walls = [
-            { x: -10, z: 0, width: 2, depth: 20 },
-            { x: 10, z: 0, width: 2, depth: 20 },
-            { x: 0, z: -10, width: 20, depth: 2 },
-            { x: 0, z: 10, width: 20, depth: 2 },
-            { x: 0, z: 0, width: 2, depth: 10 }
-        ];
-        walls.forEach(w => {
-            const wallGeometry = new THREE.BoxGeometry(w.width, 2, w.depth);
-            const wall = new THREE.Mesh(wallGeometry, wallMaterial);
-            wall.position.set(w.x, 1, w.z);
-            scene.add(wall);
-        });
-
-        // Nodo de decisión
-        const nodeGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-        const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
-        const decisionNode = new THREE.Mesh(nodeGeometry, nodeMaterial);
-        decisionNode.position.set(5, 0.5, -5);
-        scene.add(decisionNode);
-
-        camera.position.set(0, 1.5, 15);
-        let yaw = 0, pitch = 0;
-        const moveSpeed = 0.1;
-        let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
-
-        // Controles WASD
-        document.addEventListener('keydown', (event) => {
-            switch (event.code) {
-                case 'ArrowUp': case 'KeyW': moveForward = true; break;
-                case 'ArrowDown': case 'KeyS': moveBackward = true; break;
-                case 'ArrowLeft': case 'KeyA': moveLeft = true; break;
-                case 'ArrowRight': case 'KeyD': moveRight = true; break;
-            }
-        });
-        document.addEventListener('keyup', (event) => {
-            switch (event.code) {
-                case 'ArrowUp': case 'KeyW': moveForward = false; break;
-                case 'ArrowDown': case 'KeyS': moveBackward = false; break;
-                case 'ArrowLeft': case 'KeyA': moveLeft = false; break;
-                case 'ArrowRight': case 'KeyD': moveRight = false; break;
-            }
-        });
-
-        // Rotación con mouse (sin requestPointerLock para evitar problemas en iframe)
-        document.addEventListener('mousemove', (event) => {
-            if (event.buttons === 1) { // Solo rota si el botón izquierdo está presionado
-                yaw -= event.movementX * 0.002;
-                pitch -= event.movementY * 0.002;
-                pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitch));
-                camera.rotation.set(pitch, yaw, 0);
-            }
-        });
-
-        // Obtener preguntas desde el proyecto principal
-        fetch('https://main.yourdomain.com/api/game/questions', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        })
-            .then(response => response.json())
-            .then(data => questions = data)
-            .catch(error => console.error('Error fetching questions:', error));
-
-        let currentQuestion = null;
-        function showQuestion(index) {
-            currentQuestion = questions[index];
-            document.getElementById('questionText').innerText = currentQuestion.text;
-            const optionsDiv = document.getElementById('options');
-            optionsDiv.innerHTML = '';
-            currentQuestion.options.forEach((opt, i) => {
-                const btn = document.createElement('button');
-                btn.innerText = opt;
-                btn.onclick = () => answerQuestion(i);
-                optionsDiv.appendChild(btn);
-            });
-            document.getElementById('questionModal').style.display = 'block';
-        }
-
-        function answerQuestion(selected) {
-            document.getElementById('questionModal').style.display = 'none';
-            if (selected === currentQuestion.correct) {
-                score += 10;
-                scene.remove(decisionNode);
-            } else {
-                score = Math.max(0, score - 5);
-            }
-            document.getElementById('score').innerText = score;
-            fetch('https://main.yourdomain.com/api/game/score', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ score: score })
-            });
-            currentQuestion = null;
-        }
-
-        function animate() {
-            requestAnimationFrame(animate);
-            const direction = new THREE.Vector3();
-            camera.getWorldDirection(direction);
-            direction.y = 0;
-            direction.normalize();
-            if (moveForward) camera.position.addScaledVector(direction, moveSpeed);
-            if (moveBackward) camera.position.addScaledVector(direction, -moveSpeed);
-            if (moveLeft) {
-                const left = new THREE.Vector3();
-                left.crossVectors(direction, new THREE.Vector3(0, 1, 0));
-                camera.position.addScaledVector(left, -moveSpeed);
-            }
-            if (moveRight) {
-                const right = new THREE.Vector3();
-                right.crossVectors(direction, new THREE.Vector3(0, 1, 0));
-                camera.position.addScaledVector(right, moveSpeed);
-            }
-
-            walls.forEach(w => {
-                const dx = camera.position.x - w.x;
-                const dz = camera.position.z - w.z;
-                if (Math.abs(dx) < w.width / 2 + 0.5 && Math.abs(dz) < w.depth / 2 + 0.5) {
-                    camera.position.x -= dx * 0.1;
-                    camera.position.z -= dz * 0.1;
-                }
-            });
-
-            const distance = camera.position.distanceTo(decisionNode.position);
-            if (distance < 2 && !currentQuestion) {
-                showQuestion(0);
-            }
-
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
 </body>
 </html>
