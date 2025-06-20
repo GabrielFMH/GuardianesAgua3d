@@ -11,7 +11,8 @@ var camera, // We need a camera.
     renderer, // Render our graphics.
     controls, // Our Orbit Controller for camera magic.
     container, // Our HTML container for the program.
-    rotationPoint;  // The point in which our camera will rotate around.
+    rotationPoint,  // The point in which our camera will rotate around.
+    box;
 
 var characterSize = 50;
 var outlineSize = characterSize * 0.05;
@@ -35,6 +36,7 @@ var clickTimer = null;
 var indicatorTop;
 var indicatorBottom;
 
+
 /**
  * Run initial setup function and loop through rendering.
  */
@@ -46,8 +48,7 @@ animate();
  */
 function init() {
     // Build the container
-    container = document.createElement('div');
-    document.body.appendChild(container);
+    container = document.getElementById('game-container');
 
     // Create the scene.
     scene = new THREE.Scene();
@@ -87,18 +88,19 @@ function init() {
 
     // Build the renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
-
-    var element = renderer.domElement;
     renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(element);
+
+    // Inserta el canvas en el div#game-container
+    container.appendChild(renderer.domElement);
 
     // Build the controls.
-    controls = new THREE.OrbitControls(camera, element);
+    controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enablePan = true;
     controls.enableZoom = true;
     controls.maxDistance = 1000; // Set our max zoom out distance (mouse scroll)
     controls.minDistance = 60; // Set our min zoom in distance (mouse scroll)
     controls.target.copy(new THREE.Vector3(0, characterSize / 2, 0));
+    controls.update();
 
     document.addEventListener('mousedown', onDocumentMouseDown, false);
     document.addEventListener('touchstart', onDocumentTouchStart, false);
@@ -363,9 +365,10 @@ function createCharacter() {
 
     // Create outline object
     var outline_geo = new THREE.BoxGeometry(characterSize + outlineSize, characterSize + outlineSize, characterSize + outlineSize);
-    var outline_mat = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide });
+    var outline_mat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
     outline = new THREE.Mesh(outline_geo, outline_mat);
     box.add(outline);
+
 }
 
 /**
@@ -448,7 +451,7 @@ function drawIndicator() {
 
     // Create the top indicator outline.
     var geometry = new THREE.TetrahedronGeometry(topSize + outlineSize, 0);
-    var material = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide });
+    var material = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
     var outlineTop = new THREE.Mesh(geometry, material);
     indicatorTop.add(outlineTop);
 
@@ -465,7 +468,7 @@ function drawIndicator() {
 
     // Create the bottom outline.
     var geometry = new THREE.TorusGeometry(bottomRadius + outlineSize / 10, bottomRadius / 2.5, 2, 24);
-    var material = new THREE.MeshBasicMaterial({ color: 0x0000000, side: THREE.BackSide });
+    var material = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
     var outlineBottom = new THREE.Mesh(geometry, material);
     outlineBottom.position.z = -2;
     indicatorBottom.add(outlineBottom);
