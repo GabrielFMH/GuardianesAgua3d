@@ -132,9 +132,13 @@
     <Content Include="Global.asax" />
     <Content Include="Source\css\estilosBase.css" />
     <Content Include="Source\js\app.js" />
+    <Content Include="Source\js\Controllers\InputController.js" />
     <Content Include="Source\js\logicaBase.js" />
+    <Content Include="Source\js\Models\Character.js" />
+    <Content Include="Source\js\Models\Tree.js" />
     <Content Include="Source\js\OrbitControls.js" />
     <Content Include="Source\js\three.min.js" />
+    <Content Include="Source\js\Utils\Collision.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Source\js\Controllers\" />
-    <Folder Include="Source\js\Models\" />
-    <Folder Include="Source\js\Utils\" />
     <Folder Include="Source\js\Views\" />
   </ItemGroup>
   <PropertyGroup>

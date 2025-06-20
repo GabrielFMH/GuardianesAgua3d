@@ -25,9 +25,15 @@
 
     <div id="game-container"></div>
 
-    <script src="@Url.Content("~/Source/js/three.min.js")"></script>
-    <script src="@Url.Content("~/Source/js/OrbitControls.js")"></script>
-    <script src="@Url.Content("~/Source/js/logicaBase.js")"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "@Url.Content("~/Source/js/three.min.js")",
+            "three/examples/jsm/controls/OrbitControls.js": "@Url.Content("~/Source/js/OrbitControls.js")"
+        }
+    }
+    </script>
+    <script type="module" src="@Url.Content("~/Source/js/app.js")" ></script>
 
 </body>
 </html>

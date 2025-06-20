@@ -1062,4 +1062,5 @@
 	THREE.MapControls = MapControls;
 	THREE.OrbitControls = OrbitControls;
 
-} )();
+})();
+export { OrbitControls };
