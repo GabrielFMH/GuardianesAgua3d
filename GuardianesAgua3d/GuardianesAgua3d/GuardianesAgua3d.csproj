@@ -131,6 +131,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Source\css\estilosBase.css" />
+    <Content Include="Source\js\app.js" />
     <Content Include="Source\js\logicaBase.js" />
     <Content Include="Source\js\OrbitControls.js" />
     <Content Include="Source\js\three.min.js" />
@@ -160,6 +161,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Source\js\Controllers\" />
+    <Folder Include="Source\js\Models\" />
+    <Folder Include="Source\js\Utils\" />
+    <Folder Include="Source\js\Views\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
