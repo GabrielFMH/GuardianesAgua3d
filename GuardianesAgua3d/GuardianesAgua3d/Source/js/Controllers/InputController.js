@@ -15,7 +15,7 @@ export default class InputController {
 
         // Movement state
         this.moveState = { forward: false, backward: false, left: false, right: false };
-        this.moveSpeed = 0.2; // Adjust as needed
+        this.moveSpeed = 1; // Adjust as needed
 
         //document.addEventListener('mousedown', this.onMouseDown.bind(this), false);
         //document.addEventListener('touchstart', this.onTouchStart.bind(this), false);
@@ -63,10 +63,10 @@ export default class InputController {
         if (!this.controlledObject) return;
 
         const direction = new THREE.Vector3();
-        if (this.moveState.forward) direction.z -= 1;
-        if (this.moveState.backward) direction.z += 1;
-        if (this.moveState.left) direction.x -= 1;
-        if (this.moveState.right) direction.x += 1;
+        if (this.moveState.forward) direction.z += 1;
+        if (this.moveState.backward) direction.z -= 1;
+        if (this.moveState.left) direction.x += 1;
+        if (this.moveState.right) direction.x -= 1;
 
         if (direction.lengthSq() > 0) {
             direction.normalize();

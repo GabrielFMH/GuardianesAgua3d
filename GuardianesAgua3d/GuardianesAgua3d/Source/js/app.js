@@ -79,7 +79,14 @@ class GameApp {
         this.cameraControls.target.copy(new THREE.Vector3(0, this.character.characterSize / 2, 0));
 
         // Controlador de Input
-        this.inputController = new InputController(this.camera, this.renderer, this.scene, this.interactiveObjects);
+        this.inputController = new InputController(
+            this.camera,
+            this.renderer,
+            this.scene,
+            this.interactiveObjects,
+            this.character.rotationPoint
+        );
+
     }
 
     onWindowResize() {
@@ -97,6 +104,7 @@ class GameApp {
 
     update() {
         this.cameraControls.update();
+        this.inputController.update();
 
         // --- Lógica de Movimiento ---
         // Si el controlador de input tiene un destino en su lista de movimientos...
