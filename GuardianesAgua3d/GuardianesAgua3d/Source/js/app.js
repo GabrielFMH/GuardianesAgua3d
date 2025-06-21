@@ -10,6 +10,7 @@ import { detectCollisions } from './Utils/Collision.js';
 
 class GameApp {
     constructor() {
+        this.playerSpeed = 5;
         this.container = document.getElementById('game-container');
         this.setupScene();
         this.createWorld();
@@ -97,19 +98,61 @@ class GameApp {
     update() {
         this.cameraControls.update();
 
-        // Lógica de movimiento
+        // --- Lógica de Movimiento ---
+        // Si el controlador de input tiene un destino en su lista de movimientos...
         if (this.inputController.movements.length > 0) {
             const destination = this.inputController.movements[0];
-            // Tu función `move` iría aquí, adaptada para usar `this.character.rotationPoint`
-            // move(this.character.rotationPoint, destination);
+            const playerPosition = this.character.rotationPoint.position;
+
+            // Calcula la distancia al destino
+            const distanceToDestination = playerPosition.distanceTo(destination);
+
+            // Si ya casi hemos llegado, detenemos el movimiento.
+            // Comparamos con una distancia un poco menor a la velocidad para evitar pasarnos.
+            if (distanceToDestination < this.playerSpeed) {
+                playerPosition.copy(destination); // Colocamos al jugador exactamente en el destino
+                this.inputController.stopMovement();
+            } else {
+                // Calculamos el vector de dirección (un vector unitario que apunta al destino)
+                const direction = destination.clone().sub(playerPosition).normalize();
+
+                // Movemos al jugador en esa dirección, multiplicado por la velocidad
+                playerPosition.add(direction.multiplyScalar(this.playerSpeed));
+            }
         }
 
-        // Lógica de colisión
+        // --- Lógica de Colisión ---
         const playerBounds = this.character.getBounds();
+
+        // Usamos la función de utilidad que creamos, pasándole una función callback para la respuesta
         detectCollisions(playerBounds, this.collisions, (collidedWith) => {
-            console.log("Collision detected!");
+            // Detenemos cualquier movimiento en curso
             this.inputController.stopMovement();
-            // Lógica para empujar al jugador fuera del objeto
+
+            // Lógica para empujar al jugador fuera del objeto colisionado
+            const playerPosition = this.character.rotationPoint.position;
+
+            // Calculamos el centro del jugador y del objeto para saber de qué lado fue el choque
+            const playerCenterX = (playerBounds.xMax + playerBounds.xMin) / 2;
+            const playerCenterZ = (playerBounds.zMax + playerBounds.zMin) / 2;
+            const objectCenterX = (collidedWith.xMax + collidedWith.xMin) / 2;
+            const objectCenterZ = (collidedWith.zMax + collidedWith.zMin) / 2;
+
+            // Calculamos la diferencia entre los centros
+            const diffX = playerCenterX - objectCenterX;
+            const diffZ = playerCenterZ - objectCenterZ;
+
+            // Fuerza con la que empujamos al jugador para sacarlo de la colisión
+            const pushbackStrength = 1.5;
+
+            // Si la colisión es más "horizontal" que "vertical"
+            if (Math.abs(diffX) > Math.abs(diffZ)) {
+                // Empujamos en el eje X. Math.sign nos da 1 o -1 para saber la dirección.
+                playerPosition.x += Math.sign(diffX) * pushbackStrength;
+            } else {
+                // Empujamos en el eje Z.
+                playerPosition.z += Math.sign(diffZ) * pushbackStrength;
+            }
         });
     }
 }
