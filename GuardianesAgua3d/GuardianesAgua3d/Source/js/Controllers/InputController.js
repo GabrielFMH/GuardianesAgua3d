@@ -1,56 +1,76 @@
-﻿// js/Controllers/InputController.js
-import * as THREE from 'three';
+﻿import * as THREE from 'three';
 
 export default class InputController {
-    constructor(camera, renderer, scene, objectsToIntersect) {
+    constructor(camera, renderer, scene, objectsToIntersect, controlledObject) {
         this.camera = camera;
         this.renderer = renderer;
         this.scene = scene;
         this.objectsToIntersect = objectsToIntersect; // ej: [floor]
+        this.controlledObject = controlledObject; // The object to move
 
         this.raycaster = new THREE.Raycaster();
         this.mouse = new THREE.Vector2();
-        this.movements = []; // Almacena el punto de destino
+        this.movements = [];
         this.clickTimer = null;
 
-        // Bindeamos los eventos para mantener el contexto de 'this'
-        document.addEventListener('mousedown', this.onMouseDown.bind(this), false);
-        document.addEventListener('touchstart', this.onTouchStart.bind(this), false);
+        // Movement state
+        this.moveState = { forward: false, backward: false, left: false, right: false };
+        this.moveSpeed = 0.2; // Adjust as needed
+
+        //document.addEventListener('mousedown', this.onMouseDown.bind(this), false);
+        //document.addEventListener('touchstart', this.onTouchStart.bind(this), false);
+
+        // Keyboard events
+        document.addEventListener('keydown', this.onKeyDown.bind(this), false);
+        document.addEventListener('keyup', this.onKeyUp.bind(this), false);
     }
 
-    onMouseDown(event, bypass = false) {
-        event.preventDefault();
-        if (event.which !== 3 && bypass === false) return;
-
-        this.stopMovement();
-
-        this.mouse.x = (event.clientX / this.renderer.domElement.clientWidth) * 2 - 1;
-        this.mouse.y = -(event.clientY / this.renderer.domElement.clientHeight) * 2 + 1;
-
-        this.raycaster.setFromCamera(this.mouse, this.camera);
-        const intersects = this.raycaster.intersectObjects(this.objectsToIntersect);
-
-        if (intersects.length > 0) {
-            this.movements.push(intersects[0].point);
+    onKeyDown(event) {
+        switch (event.key.toLowerCase()) {
+            case 'w':
+                this.moveState.forward = true;
+                break;
+            case 's':
+                this.moveState.backward = true;
+                break;
+            case 'a':
+                this.moveState.left = true;
+                break;
+            case 'd':
+                this.moveState.right = true;
+                break;
         }
     }
 
-    onTouchStart(event) {
-        event.preventDefault();
-        event.clientX = event.touches[0].clientX;
-        event.clientY = event.touches[0].clientY;
-        const bypass = this.detectDoubleTouch();
-        this.onMouseDown(event, bypass);
+    onKeyUp(event) {
+        switch (event.key.toLowerCase()) {
+            case 'w':
+                this.moveState.forward = false;
+                break;
+            case 's':
+                this.moveState.backward = false;
+                break;
+            case 'a':
+                this.moveState.left = false;
+                break;
+            case 'd':
+                this.moveState.right = false;
+                break;
+        }
     }
 
-    detectDoubleTouch() {
-        if (!this.clickTimer) {
-            this.clickTimer = setTimeout(() => { this.clickTimer = null; }, 300);
-            return false;
-        } else {
-            clearTimeout(this.clickTimer);
-            this.clickTimer = null;
-            return true;
+    update() {
+        if (!this.controlledObject) return;
+
+        const direction = new THREE.Vector3();
+        if (this.moveState.forward) direction.z -= 1;
+        if (this.moveState.backward) direction.z += 1;
+        if (this.moveState.left) direction.x -= 1;
+        if (this.moveState.right) direction.x += 1;
+
+        if (direction.lengthSq() > 0) {
+            direction.normalize();
+            this.controlledObject.position.add(direction.multiplyScalar(this.moveSpeed));
         }
     }
 
