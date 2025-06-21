@@ -47,7 +47,7 @@ class GameApp {
         this.character = new Character();
         this.character.addToScene(this.scene);
         this.camera.lookAt(this.character.rotationPoint.position);
-        this.character.box.add(this.camera); // Hacemos la cámara hija del cubo del personaje
+        this.character.rotationPoint.add(this.camera);// Hacemos la cámara hija del cubo del personaje
 
         // Suelo
         const floorGeo = new THREE.PlaneGeometry(10000, 10000);
@@ -103,6 +103,9 @@ class GameApp {
     }
 
     update() {
+        // Haz que la cámara siempre mire al personaje
+        this.cameraControls.target.copy(this.character.rotationPoint.position);
+
         this.cameraControls.update();
         this.inputController.update();
 
