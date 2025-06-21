@@ -2,7 +2,7 @@
 // js/app.js
 
 import * as THREE from 'three';
-import { OrbitControls } from './OrbitControls.js'; // Importar desde jsm
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Character from './Models/Character.js';
 import Tree from './Models/Tree.js';
 import InputController from './Controllers/InputController.js';
@@ -49,7 +49,7 @@ class GameApp {
         this.character.box.add(this.camera); // Hacemos la cámara hija del cubo del personaje
 
         // Suelo
-        const floorGeo = new THREE.PlaneBufferGeometry(10000, 10000);
+        const floorGeo = new THREE.PlaneGeometry(10000, 10000);
         const floorMat = new THREE.MeshToonMaterial({ color: 0x336633 });
         this.floor = new THREE.Mesh(floorGeo, floorMat);
         this.floor.rotation.x = -Math.PI / 2;

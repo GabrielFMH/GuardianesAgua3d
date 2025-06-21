@@ -12,7 +12,8 @@ export default class Character {
         this.rotationPoint.position.set(0, 0, 0);
 
         // Geometría del personaje
-        const geometry = new THREE.BoxBufferGeometry(this.characterSize, this.characterSize, this.characterSize);
+        const geometry = new THREE.BoxGeometry(this.characterSize, this.characterSize, this.characterSize);
+
         const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 });
         this.box = new THREE.Mesh(geometry, material);
         this.box.position.y = this.characterSize / 2;

@@ -137,7 +137,9 @@
     <Content Include="Source\js\Models\Character.js" />
     <Content Include="Source\js\Models\Tree.js" />
     <Content Include="Source\js\OrbitControls.js" />
+    <Content Include="Source\js\three.core.js" />
     <Content Include="Source\js\three.min.js" />
+    <Content Include="Source\js\three.module.js" />
     <Content Include="Source\js\Utils\Collision.js" />
     <Content Include="Web.config" />
   </ItemGroup>
