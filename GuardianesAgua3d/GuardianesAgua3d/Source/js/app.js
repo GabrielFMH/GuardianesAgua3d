@@ -47,7 +47,7 @@ class GameApp {
         this.character = new Character();
         this.character.addToScene(this.scene);
         this.camera.lookAt(this.character.rotationPoint.position);
-        this.character.box.add(this.camera); // Hacemos la cámara hija del cubo del personaje
+        this.character.rotationPoint.add(this.camera);// Hacemos la cámara hija del cubo del personaje
 
         // Suelo
         const floorGeo = new THREE.PlaneGeometry(10000, 10000);
@@ -79,7 +79,14 @@ class GameApp {
         this.cameraControls.target.copy(new THREE.Vector3(0, this.character.characterSize / 2, 0));
 
         // Controlador de Input
-        this.inputController = new InputController(this.camera, this.renderer, this.scene, this.interactiveObjects);
+        this.inputController = new InputController(
+            this.camera,
+            this.renderer,
+            this.scene,
+            this.interactiveObjects,
+            this.character.rotationPoint
+        );
+
     }
 
     onWindowResize() {
@@ -96,7 +103,11 @@ class GameApp {
     }
 
     update() {
+        // Haz que la cámara siempre mire al personaje
+        this.cameraControls.target.copy(this.character.rotationPoint.position);
+
         this.cameraControls.update();
+        this.inputController.update();
 
         // --- Lógica de Movimiento ---
         // Si el controlador de input tiene un destino en su lista de movimientos...
