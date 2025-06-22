@@ -9,6 +9,44 @@ import InputController from './Controllers/InputController.js';
 import { detectCollisions, calculateCollisionPoints } from './Utils/Collision.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
+import Obstacles from './Models/Obstacles.js';
+import Assets from './Models/Assets.js';
+import Platforms from './Models/Platforms.js';
+
+
+function cargarObstacles(scene, collisions) {
+    Obstacles.forEach(obstacle => {
+        cargarGLBAsset(obstacle, scene, collisions);
+    });
+}
+
+function cargarAssets(scene, collisions) {
+    Obstacles.forEach(assets => {
+        cargarGLBAsset(assets, scene, collisions);
+    });
+}
+
+function cargarPlatforms(scene, collisions) {
+    Obstacles.forEach(platforms => {
+        cargarGLBAsset(platforms, scene, collisions);
+    });
+}
+
+function cargarGLBAsset(asset, scene, collisions, onLoaded) {
+    const loader = new GLTFLoader();
+    loader.load(asset.file, (gltf) => {
+        const model = gltf.scene;
+        if (asset.position) model.position.set(...asset.position);
+        if (asset.scale) model.scale.set(...asset.scale);
+        scene.add(model);
+        // Colisión
+        const collisionBox = calculateCollisionPoints(model);
+        collisions.push(collisionBox);
+        if (onLoaded) onLoaded(model);
+    }, undefined, (error) => {
+        console.error('Error cargando el modelo GLB:', error);
+    });
+}
 
 class GameApp {
     constructor() {
@@ -74,26 +112,14 @@ class GameApp {
             this.collisions.push(...tree.collisionBounds);
         });
 
-        const gltfLoader = new GLTFLoader();
-        gltfLoader.load('/Source/3dmodels/obstacle.glb', (gltf) => {
-            const model = gltf.scene;
-            model.position.set(
-                this.character.rotationPoint.position.x + 50,
-                0,
-                this.character.rotationPoint.position.z
-            );
-            model.scale.set(100, 100, 100);
-            this.scene.add(model);
-
-            // Calcula y agrega la colisión correctamente
-            const collisionBox = calculateCollisionPoints(model);
-            this.collisions.push(collisionBox);
-        }, undefined, (error) => {
-            console.error('Error cargando el modelo GLB:', error);
-        });
-
+        cargarObstacles(this.scene, this.collisions);
+        cargarAssets(this.scene, this.collisions);
+        cargarPlatforms(this.scene, this.collisions);
 
     }
+
+       
+
 
     setupControls() {
         // Controlador de cámara

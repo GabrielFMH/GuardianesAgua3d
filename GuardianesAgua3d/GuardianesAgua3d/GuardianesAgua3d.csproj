@@ -135,7 +135,10 @@
     <Content Include="Source\js\Controllers\InputController.js" />
     <Content Include="Source\js\GLTFLoader.js" />
     <Content Include="Source\js\logicaBase.js" />
+    <Content Include="Source\js\Models\Assets.js" />
     <Content Include="Source\js\Models\Character.js" />
+    <Content Include="Source\js\Models\Obstacles.js" />
+    <Content Include="Source\js\Models\Platforms.js" />
     <Content Include="Source\js\Models\Tree.js" />
     <Content Include="Source\js\OrbitControls.js" />
     <Content Include="Source\js\three.core.js" />
@@ -163,6 +166,10 @@
     <Content Include="Source\3dmodels\obstacle.glb" />
     <Content Include="Source\3dmodels\plate_obstacle.glb" />
     <Content Include="Source\3dmodels\spikeball_obstacles.glb" />
+    <Content Include="Source\3dmodels\Letrero.glb" />
+    <Content Include="Source\3dmodels\Meta.glb" />
+    <Content Include="Source\3dmodels\PersonajePrincipal.glb" />
+    <Content Include="Source\3dmodels\Portal.glb" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
