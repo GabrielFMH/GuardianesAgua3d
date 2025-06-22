@@ -133,6 +133,7 @@
     <Content Include="Source\css\estilosBase.css" />
     <Content Include="Source\js\app.js" />
     <Content Include="Source\js\Controllers\InputController.js" />
+    <Content Include="Source\js\GLTFLoader.js" />
     <Content Include="Source\js\logicaBase.js" />
     <Content Include="Source\js\Models\Character.js" />
     <Content Include="Source\js\Models\Tree.js" />
@@ -158,6 +159,10 @@
     <Content Include="Views\web.config" />
     <None Include="packages.config" />
     <Content Include="Views\Juego\Index.cshtml" />
+    <Content Include="Source\3dmodels\axe_obstacle.glb" />
+    <Content Include="Source\3dmodels\obstacle.glb" />
+    <Content Include="Source\3dmodels\plate_obstacle.glb" />
+    <Content Include="Source\3dmodels\spikeball_obstacles.glb" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

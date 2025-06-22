@@ -58,6 +58,25 @@ function WebGLAnimation() {
 
 }
 
+
+// Agrega esto antes de cargar GLTFLoader.js si LoaderUtils.decodeText no existe
+import * as THREE from 'three';
+
+if (!THREE.LoaderUtils.decodeText) {
+	THREE.LoaderUtils.decodeText = function (array) {
+		if (typeof TextDecoder !== 'undefined') {
+			return new TextDecoder().decode(array);
+		}
+		// Fallback para navegadores antiguos
+		let s = '';
+		for (let i = 0, il = array.length; i < il; i++) {
+			s += String.fromCharCode(array[i]);
+		}
+		return s;
+	};
+}
+
+
 function WebGLAttributes( gl ) {
 
 	const buffers = new WeakMap();

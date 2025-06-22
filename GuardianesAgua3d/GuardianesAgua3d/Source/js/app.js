@@ -6,17 +6,22 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import Character from './Models/Character.js';
 import Tree from './Models/Tree.js';
 import InputController from './Controllers/InputController.js';
-import { detectCollisions } from './Utils/Collision.js';
+import { detectCollisions, calculateCollisionPoints } from './Utils/Collision.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+
 
 class GameApp {
     constructor() {
-        this.playerSpeed = 5;
+        this.playerSpeed = 25;
         this.container = document.getElementById('game-container');
         this.setupScene();
         this.createWorld();
         this.setupControls();
         this.animate();
     }
+
+
+    
 
     setupScene() {
         this.scene = new THREE.Scene();
@@ -68,6 +73,26 @@ class GameApp {
             tree.addToScene(this.scene);
             this.collisions.push(...tree.collisionBounds);
         });
+
+        const gltfLoader = new GLTFLoader();
+        gltfLoader.load('/Source/3dmodels/obstacle.glb', (gltf) => {
+            const model = gltf.scene;
+            model.position.set(
+                this.character.rotationPoint.position.x + 50,
+                0,
+                this.character.rotationPoint.position.z
+            );
+            model.scale.set(100, 100, 100);
+            this.scene.add(model);
+
+            // Calcula y agrega la colisión correctamente
+            const collisionBox = calculateCollisionPoints(model);
+            this.collisions.push(collisionBox);
+        }, undefined, (error) => {
+            console.error('Error cargando el modelo GLB:', error);
+        });
+
+
     }
 
     setupControls() {
