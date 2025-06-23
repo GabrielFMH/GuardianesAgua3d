@@ -1,38 +1,40 @@
 ﻿// js/Models/Character.js
-
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 export default class Character {
     constructor() {
         this.characterSize = 50;
-        const outlineSize = this.characterSize * 0.05;
-
-        // El punto de rotación es el verdadero 'jugador' en la escena
         this.rotationPoint = new THREE.Object3D();
         this.rotationPoint.position.set(0, 0, 0);
 
-        // Geometría del personaje
-        const geometry = new THREE.BoxGeometry(this.characterSize, this.characterSize, this.characterSize);
+        this.modelLoaded = false;
+        this.jumpVelocity = 0;
+        this.isJumping = false;
 
-        const material = new THREE.MeshPhongMaterial({ color: 0x22dd88 });
-        this.box = new THREE.Mesh(geometry, material);
-        this.box.position.y = this.characterSize / 2;
+        const loader = new GLTFLoader();
+        loader.load('/Source/3dmodels/PersonajePrincipal.glb', (gltf) => {
+            console.log("✅ Modelo del personaje cargado:", gltf);
+            this.box = gltf.scene;
 
-        // Contorno
-        const outline_geo = new THREE.BoxGeometry(this.characterSize + outlineSize, this.characterSize + outlineSize, this.characterSize + outlineSize);
-        const outline_mat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
-        const outline = new THREE.Mesh(outline_geo, outline_mat);
+            this.box.scale.set(15, 15, 15);
+            this.box.updateMatrixWorld(true);
 
-        this.box.add(outline);
-        this.rotationPoint.add(this.box);
+            const bbox = new THREE.Box3().setFromObject(this.box);
+            const height = bbox.max.y - bbox.min.y;
+            this.box.position.y = -bbox.min.y;
+
+            this.rotationPoint.add(this.box);
+            this.modelLoaded = true;
+        }, undefined, (error) => {
+            console.error("❌ Error cargando modelo del personaje:", error);
+        });
     }
 
-    // Método para añadir a la escena
     addToScene(scene) {
         scene.add(this.rotationPoint);
     }
 
-    // Método para obtener el bounding box para colisiones
     getBounds() {
         const boxSize = this.characterSize;
         return {
@@ -43,5 +45,27 @@ export default class Character {
             zMin: this.rotationPoint.position.z - boxSize / 2,
             zMax: this.rotationPoint.position.z + boxSize / 2,
         };
+    }
+
+    // 🚀 Salto más potente
+    jump() {
+        if (!this.isJumping) {
+            this.jumpVelocity = 8.0; // fuerza inicial aumentada
+            this.isJumping = true;
+        }
+    }
+
+    // 📉 Caída más suave
+    update() {
+        if (this.isJumping && this.box) {
+            this.jumpVelocity -= 0.10; // gravedad reducida
+            this.rotationPoint.position.y += this.jumpVelocity;
+
+            if (this.rotationPoint.position.y <= 0) {
+                this.rotationPoint.position.y = 0;
+                this.jumpVelocity = 0;
+                this.isJumping = false;
+            }
+        }
     }
 }
