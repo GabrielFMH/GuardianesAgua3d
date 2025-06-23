@@ -357,19 +357,26 @@ function calculateCollisionPoints(mesh, scale, type = 'collision') {
  * Create the main character.
  */
 function createCharacter() {
-    var geometry = new THREE.BoxBufferGeometry(characterSize, characterSize, characterSize);
-    var material = new THREE.MeshPhongMaterial({ color: 0x22dd88 });
-    box = new THREE.Mesh(geometry, material);
-    box.position.y = characterSize / 2;
-    rotationPoint.add(box);
+    const loader = new THREE.GLTFLoader();
 
-    // Create outline object
-    var outline_geo = new THREE.BoxGeometry(characterSize + outlineSize, characterSize + outlineSize, characterSize + outlineSize);
-    var outline_mat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide });
-    outline = new THREE.Mesh(outline_geo, outline_mat);
-    box.add(outline);
+    loader.load('/Source/3dmodels/PersonajePrincipal.glb', function (gltf) {
+        box = gltf.scene;
+        box.scale.set(15, 15, 15);
 
+        // Centrar el modelo verticalmente para que toque el suelo
+        const bbox = new THREE.Box3().setFromObject(box);
+        box.position.y = -bbox.min.y; // Lo baja hasta que base toque y=0
+
+        rotationPoint.add(box);
+        console.log("✅ Personaje GLB cargado y ajustado al suelo");
+
+    }, undefined, function (error) {
+        console.error("❌ Error cargando el personaje:", error);
+    });
 }
+
+
+
 
 /**
  * Create the floor of the scene.

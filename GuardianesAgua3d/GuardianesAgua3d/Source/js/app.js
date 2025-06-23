@@ -1,5 +1,4 @@
-﻿/// <reference path="orbitcontrols.js" />
-// js/app.js
+﻿console.log("✅ app.js cargado correctamente");
 
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -12,7 +11,6 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import Obstacles from './Models/Obstacles.js';
 import Assets from './Models/Assets.js';
 import Platforms from './Models/Platforms.js';
-
 
 function cargarObstacles(scene, collisions) {
     Obstacles.forEach(obstacle => {
@@ -39,7 +37,6 @@ function cargarGLBAsset(asset, scene, collisions, onLoaded) {
         if (asset.position) model.position.set(...asset.position);
         if (asset.scale) model.scale.set(...asset.scale);
         scene.add(model);
-        // Colisión
         const collisionBox = calculateCollisionPoints(model);
         collisions.push(collisionBox);
         if (onLoaded) onLoaded(model);
@@ -55,11 +52,9 @@ class GameApp {
         this.setupScene();
         this.createWorld();
         this.setupControls();
+        this.setupKeyboard(); // 👈 Agregado para detectar salto
         this.animate();
     }
-
-
-    
 
     setupScene() {
         this.scene = new THREE.Scene();
@@ -84,15 +79,13 @@ class GameApp {
 
     createWorld() {
         this.collisions = [];
-        this.interactiveObjects = []; // Objetos con los que el raycaster puede intersectar
+        this.interactiveObjects = [];
 
-        // Personaje
         this.character = new Character();
         this.character.addToScene(this.scene);
         this.camera.lookAt(this.character.rotationPoint.position);
-        this.character.rotationPoint.add(this.camera);// Hacemos la cámara hija del cubo del personaje
+        this.character.rotationPoint.add(this.camera);
 
-        // Suelo
         const floorGeo = new THREE.PlaneGeometry(10000, 10000);
         const floorMat = new THREE.MeshToonMaterial({ color: 0x336633 });
         this.floor = new THREE.Mesh(floorGeo, floorMat);
@@ -100,7 +93,6 @@ class GameApp {
         this.scene.add(this.floor);
         this.interactiveObjects.push(this.floor);
 
-        // Árboles
         this.trees = [
             new Tree(300, 300),
             new Tree(800, -300),
@@ -115,21 +107,15 @@ class GameApp {
         cargarObstacles(this.scene, this.collisions);
         cargarAssets(this.scene, this.collisions);
         cargarPlatforms(this.scene, this.collisions);
-
     }
 
-       
-
-
     setupControls() {
-        // Controlador de cámara
         this.cameraControls = new OrbitControls(this.camera, this.renderer.domElement);
         this.cameraControls.enablePan = true;
         this.cameraControls.maxDistance = 1000;
         this.cameraControls.minDistance = 60;
         this.cameraControls.target.copy(new THREE.Vector3(0, this.character.characterSize / 2, 0));
 
-        // Controlador de Input
         this.inputController = new InputController(
             this.camera,
             this.renderer,
@@ -137,7 +123,15 @@ class GameApp {
             this.interactiveObjects,
             this.character.rotationPoint
         );
+    }
 
+    // 👇 Agregado para detectar salto con espacio
+    setupKeyboard() {
+        window.addEventListener('keydown', (event) => {
+            if (event.code === 'Space') {
+                this.character.jump();
+            }
+        });
     }
 
     onWindowResize() {
@@ -148,76 +142,54 @@ class GameApp {
 
     animate() {
         requestAnimationFrame(this.animate.bind(this));
-
         this.update();
         this.renderer.render(this.scene, this.camera);
     }
 
     update() {
-        // Haz que la cámara siempre mire al personaje
-        this.cameraControls.target.copy(this.character.rotationPoint.position);
-
+        if (this.character.modelLoaded) {
+            this.cameraControls.target.copy(this.character.rotationPoint.position);
+            this.character.update(); // asegura que salte solo si cargó
+        }
         this.cameraControls.update();
         this.inputController.update();
+        this.character.update(); // 👈 Agregado para aplicar la física del salto
 
-        // --- Lógica de Movimiento ---
-        // Si el controlador de input tiene un destino en su lista de movimientos...
         if (this.inputController.movements.length > 0) {
             const destination = this.inputController.movements[0];
             const playerPosition = this.character.rotationPoint.position;
-
-            // Calcula la distancia al destino
             const distanceToDestination = playerPosition.distanceTo(destination);
 
-            // Si ya casi hemos llegado, detenemos el movimiento.
-            // Comparamos con una distancia un poco menor a la velocidad para evitar pasarnos.
             if (distanceToDestination < this.playerSpeed) {
-                playerPosition.copy(destination); // Colocamos al jugador exactamente en el destino
+                playerPosition.copy(destination);
                 this.inputController.stopMovement();
             } else {
-                // Calculamos el vector de dirección (un vector unitario que apunta al destino)
                 const direction = destination.clone().sub(playerPosition).normalize();
-
-                // Movemos al jugador en esa dirección, multiplicado por la velocidad
                 playerPosition.add(direction.multiplyScalar(this.playerSpeed));
             }
         }
 
-        // --- Lógica de Colisión ---
         const playerBounds = this.character.getBounds();
 
-        // Usamos la función de utilidad que creamos, pasándole una función callback para la respuesta
         detectCollisions(playerBounds, this.collisions, (collidedWith) => {
-            // Detenemos cualquier movimiento en curso
             this.inputController.stopMovement();
 
-            // Lógica para empujar al jugador fuera del objeto colisionado
             const playerPosition = this.character.rotationPoint.position;
-
-            // Calculamos el centro del jugador y del objeto para saber de qué lado fue el choque
             const playerCenterX = (playerBounds.xMax + playerBounds.xMin) / 2;
             const playerCenterZ = (playerBounds.zMax + playerBounds.zMin) / 2;
             const objectCenterX = (collidedWith.xMax + collidedWith.xMin) / 2;
             const objectCenterZ = (collidedWith.zMax + collidedWith.zMin) / 2;
-
-            // Calculamos la diferencia entre los centros
             const diffX = playerCenterX - objectCenterX;
             const diffZ = playerCenterZ - objectCenterZ;
 
-            // Fuerza con la que empujamos al jugador para sacarlo de la colisión
             const pushbackStrength = 1.5;
-
-            // Si la colisión es más "horizontal" que "vertical"
             if (Math.abs(diffX) > Math.abs(diffZ)) {
-                // Empujamos en el eje X. Math.sign nos da 1 o -1 para saber la dirección.
                 playerPosition.x += Math.sign(diffX) * pushbackStrength;
             } else {
-                // Empujamos en el eje Z.
                 playerPosition.z += Math.sign(diffZ) * pushbackStrength;
             }
         });
     }
 }
 
-// Iniciar la aplicación
 new GameApp();
