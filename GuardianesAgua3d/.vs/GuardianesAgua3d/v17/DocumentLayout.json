@@ -1,22 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\",
+  "WorkspaceRootPath": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\leandro\\source\\repos\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\source\\js\\models\\character.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\source\\js\\models\\character.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|d:\\web22025\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\controllers\\juegocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\controllers\\juegocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\leandro\\source\\repos\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\views\\juego\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\views\\juego\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\leandro\\source\\repos\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\source\\js\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|d:\\web22025\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\source\\js\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\source\\js\\app.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|c:\\users\\leandro\\source\\repos\\guardianesagua3d\\guardianesagua3d\\guardianesagua3d\\source\\js\\logicabase.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\source\\js\\logicabase.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\guardianesagua3d\\views\\juego\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\views\\juego\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\guardianesagua3d\\source\\js\\models\\obstacles.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{31448C61-874C-438F-837D-8887A52EB36D}|GuardianesAgua3d\\GuardianesAgua3d.csproj|solutionrelative:guardianesagua3d\\source\\js\\models\\obstacles.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -31,53 +31,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Character.js",
-              "DocumentMoniker": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\Models\\Character.js",
-              "RelativeDocumentMoniker": "GuardianesAgua3d\\Source\\js\\Models\\Character.js",
-              "ToolTip": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\Models\\Character.js",
-              "RelativeToolTip": "GuardianesAgua3d\\Source\\js\\Models\\Character.js",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAqwEcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-06-23T00:01:07.675Z",
+              "Title": "JuegoController.cs",
+              "DocumentMoniker": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "ToolTip": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "RelativeToolTip": "GuardianesAgua3d\\Controllers\\JuegoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T16:21:08.39Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "app.js",
-              "DocumentMoniker": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\app.js",
-              "RelativeDocumentMoniker": "GuardianesAgua3d\\Source\\js\\app.js",
-              "ToolTip": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\app.js",
-              "RelativeToolTip": "GuardianesAgua3d\\Source\\js\\app.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-06-22T23:34:05.383Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "ToolTip": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "RelativeToolTip": "GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-23T04:29:54.025Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "logicaBase.js",
-              "DocumentMoniker": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\logicaBase.js",
-              "RelativeDocumentMoniker": "GuardianesAgua3d\\Source\\js\\logicaBase.js",
-              "ToolTip": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\logicaBase.js",
-              "RelativeToolTip": "GuardianesAgua3d\\Source\\js\\logicaBase.js",
-              "ViewState": "AgIAAFcBAAAAAAAAAAAuwG0BAABCAAAAAAAAAA==",
+              "Title": "Obstacles.js",
+              "DocumentMoniker": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\Models\\Obstacles.js",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Source\\js\\Models\\Obstacles.js",
+              "ToolTip": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\Models\\Obstacles.js",
+              "RelativeToolTip": "GuardianesAgua3d\\Source\\js\\Models\\Obstacles.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-06-22T23:18:55.012Z",
+              "WhenOpened": "2025-06-23T04:25:54.001Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
-              "RelativeDocumentMoniker": "GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Leandro\\source\\repos\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
-              "RelativeToolTip": "GuardianesAgua3d\\Views\\Juego\\Index.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-06-22T23:17:13.123Z",
+              "Title": "app.js",
+              "DocumentMoniker": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\app.js",
+              "RelativeDocumentMoniker": "GuardianesAgua3d\\Source\\js\\app.js",
+              "ToolTip": "D:\\web22025\\GuardianesAgua3d\\GuardianesAgua3d\\GuardianesAgua3d\\Source\\js\\app.js",
+              "RelativeToolTip": "GuardianesAgua3d\\Source\\js\\app.js",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAAAGIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-06-22T23:34:05.383Z",
               "EditorCaption": ""
             }
           ]

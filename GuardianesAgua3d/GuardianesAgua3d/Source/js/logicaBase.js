@@ -70,6 +70,7 @@ function init() {
 
     createCharacter();
     createFloor();
+    createWaterPlatform();
     createTree(300, 300);
     createTree(800, -300);
     createTree(-300, 800);
@@ -479,4 +480,35 @@ function drawIndicator() {
     var outlineBottom = new THREE.Mesh(geometry, material);
     outlineBottom.position.z = -2;
     indicatorBottom.add(outlineBottom);
+}
+
+
+/**
+* Crea una plataforma de agua en el centro del escenario.
+*/
+function createWaterPlatform() {
+    var waterRadius = 180;
+    var waterGeometry = new THREE.CylinderGeometry(waterRadius, waterRadius, 8, 64);
+    var waterMaterial = new THREE.MeshPhongMaterial({
+        color: 0x33bfff,
+        transparent: true,
+        opacity: 0.75,
+        shininess: 120,
+        reflectivity: 1,
+        emissive: 0x2277bb
+    });
+    var water = new THREE.Mesh(waterGeometry, waterMaterial);
+    water.position.set(0, 4, 0); // Un poco sobre el suelo
+    water.receiveShadow = true;
+    scene.add(water);
+
+    // Opcional: contorno para resaltar el agua
+    var outlineGeometry = new THREE.CylinderGeometry(waterRadius + 3, waterRadius + 3, 10, 64);
+    var outlineMaterial = new THREE.MeshBasicMaterial({ color: 0x005577, side: THREE.BackSide, opacity: 0.5, transparent: true });
+    var waterOutline = new THREE.Mesh(outlineGeometry, outlineMaterial);
+    waterOutline.position.copy(water.position);
+    scene.add(waterOutline);
+
+    // Si quieres que sea interactivo, agrégalo a objects
+    objects.push(water);
 }
